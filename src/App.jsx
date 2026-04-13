@@ -1,84 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, Play, Star, ChevronLeft, ChevronRight, Award, BookOpen, Brain, Sparkles } from 'lucide-react';
-
-// ==========================================
-// 1. MOCK JSON DATA
-// ==========================================
-const MOCK_DB = {
-  nursery: {
-    math: {
-      title: { en: "Math Magic", bn: "অঙ্কের জাদু" },
-      modules: [
-        {
-          id: "m1",
-          type: "video",
-          // Note: Please replace with an actual Google Drive Video ID ensuring permissions are set to 'Anyone with the link'
-          gdriveId: "1A2B3C4D5E6F7G8H9I0J", 
-          rewardStars: 10,
-          instruction: { en: "Watch this video to learn numbers!", bn: "সংখ্যা শিখতে এই ভিডিওটি দেখো!" }
-        },
-        {
-          id: "m2",
-          type: "quiz",
-          rewardStars: 10,
-          instruction: { en: "Let's play a quiz!", bn: "চলো একটা কুইজ খেলি!" },
-          questions: [
-            {
-              id: "q1",
-              questionText: { en: "Which is number 1?", bn: "১ সংখ্যাটি কোনটি?" },
-              options: [
-                { id: "o1", text: "1", isCorrect: true },
-                { id: "o2", text: "2", isCorrect: false },
-                { id: "o3", text: "3", isCorrect: false }
-              ]
-            },
-            {
-              id: "q2",
-              questionText: { en: "Where is number 2?", bn: "২ সংখ্যাটি কোথায়?" },
-              options: [
-                { id: "o1", text: "3", isCorrect: false },
-                { id: "o2", text: "1", isCorrect: false },
-                { id: "o3", text: "2", isCorrect: true }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    english: {
-      title: { en: "English ABC", bn: "ইংরেজি এবিসি" },
-      modules: [
-        {
-          id: "e1",
-          type: "quiz",
-          rewardStars: 15,
-          instruction: { en: "Letter game!", bn: "অক্ষরের খেলা!" },
-          questions: [
-            {
-              id: "q1",
-              questionText: { en: "Which letter is A?", bn: "কোনটি 'A' অক্ষর?" },
-              options: [
-                { id: "o1", text: "B", isCorrect: false },
-                { id: "o2", text: "A", isCorrect: true },
-                { id: "o3", text: "C", isCorrect: false }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    science: {
-      title: { en: "Science Fun", bn: "বিজ্ঞানের মজা" },
-      modules: []
-    }
-  }
-};
+import { MOCK_DB } from './data/mockDb';
 
 const AVATARS = ['🦁', '🐯', '🐼', '🐰', '🚀', '🌟'];
 const CLASSES = [
   { id: 'nursery', label: 'Nursery' },
   { id: 'lkg', label: 'LKG' },
   { id: 'ukg', label: 'UKG' },
+  { id: 'preparatory', label: 'Preparatory' },
   { id: 'class1', label: 'Class 1' },
   { id: 'class2', label: 'Class 2' },
   { id: 'class3', label: 'Class 3' },
