@@ -80,6 +80,13 @@ const CLASSES = [
   { id: 'lkg', label: 'LKG' },
   { id: 'ukg', label: 'UKG' },
   { id: 'class1', label: 'Class 1' },
+  { id: 'class2', label: 'Class 2' },
+  { id: 'class3', label: 'Class 3' },
+  { id: 'class4', label: 'Class 4' },
+  { id: 'class5', label: 'Class 5' },
+  { id: 'class6', label: 'Class 6' },
+  { id: 'class7', label: 'Class 7' },
+  { id: 'class8', label: 'Class 8' },
 ];
 
 // ==========================================
