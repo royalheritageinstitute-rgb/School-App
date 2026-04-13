@@ -514,5 +514,59 @@ export const MOCK_DB = {
         }
       ]
     }
+  },
+  class2: {
+    math: { title: { en: "Class 2 Math", bn: "দ্বিতীয় শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 20, rewardStars: 15, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 10, rewardStars: 15, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 10, rewardStars: 20, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
+  },
+  class3: {
+    math: { title: { en: "Class 3 Math", bn: "তৃতীয় শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 50, rewardStars: 15, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 12, rewardStars: 15, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 12, rewardStars: 20, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
+  },
+  class4: {
+    math: { title: { en: "Class 4 Math", bn: "চতুর্থ শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 100, rewardStars: 20, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 15, rewardStars: 20, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 15, rewardStars: 25, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
+  },
+  class5: {
+    math: { title: { en: "Class 5 Math", bn: "পঞ্চম শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 200, rewardStars: 20, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 20, rewardStars: 20, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 20, rewardStars: 25, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
+  },
+  class6: {
+    math: { title: { en: "Class 6 Math", bn: "ষষ্ঠ শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 500, rewardStars: 25, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 50, rewardStars: 25, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 20, rewardStars: 30, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
+  },
+  class7: {
+    math: { title: { en: "Class 7 Math", bn: "সপ্তম শ্রেণীর অঙ্ক" }, modules: [
+      { id: "m_add", type: "math_game", subType: "addition", maxNum: 1000, rewardStars: 30, instruction: { en: "Addition", bn: "যোগ" } },
+      { id: "m_mul", type: "math_game", subType: "multiplication", maxNum: 100, rewardStars: 30, instruction: { en: "Multiplication", bn: "গুণ" } },
+      { id: "m_table", type: "math_game", subType: "tables", maxTable: 25, rewardStars: 40, instruction: { en: "Times Tables", bn: "নামতা" } }
+    ]},
+    english: { title: { en: "English", bn: "ইংরেজি" }, modules: [] },
+    science: { title: { en: "Science", bn: "বিজ্ঞান" }, modules: [] }
   }
 };
