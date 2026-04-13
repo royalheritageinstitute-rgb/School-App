@@ -624,8 +624,10 @@ const ModuleView = ({ subjectId, classId, lang, onBack, onReward }) => {
               <div className="text-left">
                 <p className="font-bold text-[#1E3A8A] text-lg">
                   {mod.type === 'video' ? (lang === 'en' ? "Watch Video" : "ভিডিও দেখো") : 
-                   mod.type === 'math_game' ? (lang === 'en' ? "Play Game" : "গেম খেলো") :
-                   (lang === 'en' ? "Play Quiz" : "কুইজ খেলো")}
+                   mod.type === 'math_game' && mod.subType === 'addition' ? (lang === 'en' ? "⚡ Addition Dash" : "⚡ যোগের খেলা") :
+                   mod.type === 'math_game' && mod.subType === 'multiplication' ? (lang === 'en' ? "🚀 Multiply Rush" : "🚀 গুণের দৌড়") :
+                   mod.type === 'math_game' && mod.subType === 'tables' ? (lang === 'en' ? "🦸 Times Table Hero" : "🦸 নামতা হিরো") :
+                   (mod.instruction ? mod.instruction[lang] : (lang === 'en' ? "Play Quiz" : "কুইজ খেলো"))}
                 </p>
                 <div className="flex items-center gap-1 text-[#F59E0B] font-bold text-sm">
                   <Star fill="#F59E0B" size={14} /> +{mod.rewardStars} {lang === 'en' ? "Points" : "পয়েন্ট"}
