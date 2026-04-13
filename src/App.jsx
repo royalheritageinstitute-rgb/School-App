@@ -242,12 +242,13 @@ const QuizCard = ({ module, lang, onComplete }) => {
 
 // --- Page Level Views ---
 const OnboardingView = ({ setProfile, lang }) => {
+  const [name, setName] = useState('');
   const [selectedClass, setSelectedClass] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const handleStart = () => {
-    if (selectedClass && selectedAvatar) {
-      setProfile({ classId: selectedClass, avatar: selectedAvatar });
+    if (name.trim() && selectedClass && selectedAvatar) {
+      setProfile({ name: name.trim(), classId: selectedClass, avatar: selectedAvatar });
     }
   };
 
@@ -263,25 +264,38 @@ const OnboardingView = ({ setProfile, lang }) => {
       </div>
 
       <div className="w-full max-w-sm flex flex-col gap-4">
-        <h2 className="text-[#1E3A8A] font-bold text-xl">{lang === 'en' ? "1. Select Class" : "১. ক্লাস বেছে নাও"}</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {CLASSES.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setSelectedClass(c.id)}
-              className={`min-h-[50px] rounded-xl font-bold active:scale-95 transition-transform ${
-                selectedClass === c.id ? "bg-[#F59E0B] text-white shadow-md" : "bg-white text-[#1E3A8A] shadow-sm border border-gray-100"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
+        <h2 className="text-[#1E3A8A] font-bold text-xl">{lang === 'en' ? "1. What is your name?" : "১. তোমার নাম কী?"}</h2>
+        <input 
+          type="text" 
+          value={name} 
+          onChange={(e) => setName(e.target.value)}
+          placeholder={lang === 'en' ? "Enter your name..." : "তোমার নাম লেখো..."}
+          className="w-full p-4 rounded-xl text-xl font-bold text-[#1E3A8A] bg-white border-2 border-[#FEF3C7] focus:border-[#F59E0B] focus:outline-none shadow-sm"
+        />
       </div>
 
+      {name.trim() && (
+        <div className="w-full max-w-sm flex flex-col gap-4 animate-fade-in mt-2">
+          <h2 className="text-[#1E3A8A] font-bold text-xl">{lang === 'en' ? "2. Select Class" : "২. ক্লাস বেছে নাও"}</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {CLASSES.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setSelectedClass(c.id)}
+                className={`min-h-[50px] rounded-xl font-bold active:scale-95 transition-transform ${
+                  selectedClass === c.id ? "bg-[#F59E0B] text-white shadow-md" : "bg-white text-[#1E3A8A] shadow-sm border border-gray-100"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {selectedClass && (
-        <div className="w-full max-w-sm flex flex-col gap-4 animate-fade-in">
-          <h2 className="text-[#1E3A8A] font-bold text-xl">{lang === 'en' ? "2. Pick an Avatar" : "২. ছবি বেছে নাও"}</h2>
+        <div className="w-full max-w-sm flex flex-col gap-4 animate-fade-in mt-2">
+          <h2 className="text-[#1E3A8A] font-bold text-xl">{lang === 'en' ? "3. Pick an Avatar" : "৩. ছবি বেছে নাও"}</h2>
           <div className="grid grid-cols-3 gap-3">
             {AVATARS.map((emoji) => (
               <button
@@ -298,7 +312,7 @@ const OnboardingView = ({ setProfile, lang }) => {
         </div>
       )}
 
-      {selectedClass && selectedAvatar && (
+      {name.trim() && selectedClass && selectedAvatar && (
         <button
           onClick={handleStart}
           className="w-full max-w-sm mt-4 min-h-[60px] bg-[#10B981] text-white font-bold text-2xl rounded-full shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2"
@@ -324,7 +338,7 @@ const DashboardView = ({ profile, lang, onSelectSubject, stats }) => {
       <div className="bg-[#1E3A8A] p-6 rounded-2xl shadow-sm text-white flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold mb-1">
-            {lang === 'en' ? "Hello," : "হ্যালো,"} {profile.avatar}
+            {lang === 'en' ? "Hello," : "হ্যালো,"} {profile.name} {profile.avatar}
           </h2>
           <p className="opacity-90">
             {lang === 'en' ? "Ready to learn?" : "পড়াশোনা শুরু করবে?"}
