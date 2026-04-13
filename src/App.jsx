@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, Play, Star, ChevronLeft, Award, BookOpen, Brain, Sparkles } from 'lucide-react';
+import { Volume2, Play, Star, ChevronLeft, ChevronRight, Award, BookOpen, Brain, Sparkles } from 'lucide-react';
 
 // ==========================================
 // 1. MOCK JSON DATA
