@@ -241,10 +241,10 @@ const QuizCard = ({ module, lang, onComplete }) => {
 };
 
 // --- Page Level Views ---
-const OnboardingView = ({ setProfile, lang }) => {
-  const [name, setName] = useState('');
-  const [selectedClass, setSelectedClass] = useState(null);
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
+const OnboardingView = ({ setProfile, initialProfile, lang }) => {
+  const [name, setName] = useState(initialProfile?.name || '');
+  const [selectedClass, setSelectedClass] = useState(initialProfile?.classId || null);
+  const [selectedAvatar, setSelectedAvatar] = useState(initialProfile?.avatar || null);
 
   const handleStart = () => {
     if (name.trim() && selectedClass && selectedAvatar) {
@@ -312,20 +312,31 @@ const OnboardingView = ({ setProfile, lang }) => {
         </div>
       )}
 
-      {name.trim() && selectedClass && selectedAvatar && (
-        <button
-          onClick={handleStart}
-          className="w-full max-w-sm mt-4 min-h-[60px] bg-[#10B981] text-white font-bold text-2xl rounded-full shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2"
-        >
-          {lang === 'en' ? "Go Play!" : "খেলতে যাও!"}
-          <Play fill="currentColor" size={24} />
-        </button>
-      )}
+      <div className="w-full max-w-sm flex flex-col gap-3 mt-4">
+        {name.trim() && selectedClass && selectedAvatar && (
+          <button
+            onClick={handleStart}
+            className="w-full min-h-[60px] bg-[#10B981] text-white font-bold text-2xl rounded-full shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2"
+          >
+            {lang === 'en' ? (initialProfile ? "Save Profile" : "Go Play!") : (initialProfile ? "প্রোফাইল সেভ করো" : "খেলতে যাও!")}
+            <Play fill="currentColor" size={24} />
+          </button>
+        )}
+        
+        {initialProfile && (
+          <button
+            onClick={() => setProfile(initialProfile)}
+            className="w-full min-h-[50px] bg-white text-[#1E3A8A] font-bold text-lg rounded-full shadow-sm active:scale-95 transition-transform border border-gray-200"
+          >
+            {lang === 'en' ? "Cancel" : "বাতিল করুন"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-const DashboardView = ({ profile, lang, onSelectSubject, stats }) => {
+const DashboardView = ({ profile, lang, onSelectSubject, stats, onEditProfile }) => {
   const subjects = [
     { id: 'math', icon: <Brain size={32} />, color: "bg-[#FEF3C7]", text: { en: "Math", bn: "অঙ্ক" } },
     { id: 'english', icon: <BookOpen size={32} />, color: "bg-[#F9FAFB]", text: { en: "English", bn: "ইংরেজি" } },
@@ -335,16 +346,22 @@ const DashboardView = ({ profile, lang, onSelectSubject, stats }) => {
   return (
     <div className="flex flex-col gap-6 p-4">
       {/* Welcome Banner */}
-      <div className="bg-[#1E3A8A] p-6 rounded-2xl shadow-sm text-white flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold mb-1">
+      <div className="bg-[#1E3A8A] p-6 rounded-2xl shadow-sm text-white flex items-start justify-between gap-2">
+        <div className="flex-1">
+          <h2 className="text-2xl font-bold mb-1 leading-tight">
             {lang === 'en' ? "Hello," : "হ্যালো,"} {profile.name} {profile.avatar}
           </h2>
-          <p className="opacity-90">
+          <p className="opacity-90 mb-3">
             {lang === 'en' ? "Ready to learn?" : "পড়াশোনা শুরু করবে?"}
           </p>
+          <button 
+            onClick={onEditProfile}
+            className="text-sm flex items-center gap-1 bg-white/20 px-4 py-1.5 rounded-full active:scale-95 transition-transform hover:bg-white/30 max-w-fit font-bold"
+          >
+            ✏️ {lang === 'en' ? "Edit Profile" : "প্রোফাইল পরিবর্তন"}
+          </button>
         </div>
-        <div className="flex flex-col items-center justify-center bg-white/20 p-3 rounded-xl">
+        <div className="flex flex-col items-center justify-center bg-white/20 p-3 rounded-xl shrink-0">
           <div className="flex items-center gap-1 font-bold text-xl text-[#F59E0B]">
             <Star fill="#F59E0B" /> {stats.stars}
           </div>
@@ -479,6 +496,7 @@ const ModuleView = ({ subjectId, classId, lang, onBack, onReward }) => {
 // ==========================================
 export default function App() {
   const [profile, setProfile] = useLocalStorage('rhl_profile', null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [lang, setLang] = useLocalStorage('rhl_lang', 'en'); // 'en' or 'bn'
   const [stats, setStats] = useLocalStorage('rhl_stats', { stars: 0, streak: 1, completed: [] });
 
@@ -517,8 +535,15 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full bg-[#F9FAFB]">
-        {!profile ? (
-          <OnboardingView setProfile={setProfile} lang={lang} />
+        {(!profile || isEditingProfile) ? (
+          <OnboardingView 
+            setProfile={(p) => {
+              setProfile(p);
+              setIsEditingProfile(false);
+            }} 
+            initialProfile={profile}
+            lang={lang} 
+          />
         ) : activeSubject ? (
           <ModuleView 
             subjectId={activeSubject} 
@@ -533,6 +558,7 @@ export default function App() {
             lang={lang} 
             onSelectSubject={setActiveSubject} 
             stats={stats} 
+            onEditProfile={() => setIsEditingProfile(true)}
           />
         )}
       </main>
