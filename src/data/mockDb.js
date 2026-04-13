@@ -243,6 +243,22 @@ export const MOCK_DB = {
               ]
             }
           ]
+        },
+        {
+          id: "m_add",
+          type: "math_game",
+          subType: "addition",
+          maxNum: 5,
+          rewardStars: 15,
+          instruction: { en: "Speed Addition!", bn: "দ্রুত যোগ করো!" }
+        },
+        {
+          id: "m_table",
+          type: "math_game",
+          subType: "tables",
+          maxTable: 5,
+          rewardStars: 20,
+          instruction: { en: "Times Tables Mini", bn: "ছোট নামতা" }
         }
       ]
     },
@@ -317,6 +333,30 @@ export const MOCK_DB = {
               ]
             }
           ]
+        },
+        {
+          id: "m_add",
+          type: "math_game",
+          subType: "addition",
+          maxNum: 10,
+          rewardStars: 20,
+          instruction: { en: "Quick Addition!", bn: "দ্রুত যোগ!" }
+        },
+        {
+          id: "m_mul",
+          type: "math_game",
+          subType: "multiplication",
+          maxNum: 5,
+          rewardStars: 25,
+          instruction: { en: "Basic Multiplication!", bn: "প্রাথমিক গুণ!" }
+        },
+        {
+          id: "m_table",
+          type: "math_game",
+          subType: "tables",
+          maxTable: 10,
+          rewardStars: 30,
+          instruction: { en: "Times Tables (1-10)", bn: "নামতা (১-১০)" }
         }
       ]
     },
@@ -394,6 +434,30 @@ export const MOCK_DB = {
               ]
             }
           ]
+        },
+        {
+          id: "m_add",
+          type: "math_game",
+          subType: "addition",
+          maxNum: 1000,
+          rewardStars: 30,
+          instruction: { en: "Advanced Addition!", bn: "উচ্চতর যোগ!" }
+        },
+        {
+          id: "m_mul",
+          type: "math_game",
+          subType: "multiplication",
+          maxNum: 100,
+          rewardStars: 40,
+          instruction: { en: "Heavy Multiplication!", bn: "উচ্চতর গুণ!" }
+        },
+        {
+          id: "m_table",
+          type: "math_game",
+          subType: "tables",
+          maxTable: 25,
+          rewardStars: 50,
+          instruction: { en: "Master Times Tables", bn: "নামতা মাস্টার (১-২৫)" }
         }
       ]
     },

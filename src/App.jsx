@@ -176,6 +176,205 @@ const QuizCard = ({ module, lang, onComplete }) => {
   );
 };
 
+const MathGameCard = ({ module, lang, onComplete }) => {
+  const [gameState, setGameState] = useState('menu'); // 'menu', 'playing', 'finished'
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [currentQ, setCurrentQ] = useState(null);
+  const [feedback, setFeedback] = useState(null); // 'correct', 'wrong', 'timeout'
+  const [timeLeft, setTimeLeft] = useState(5);
+  const [score, setScore] = useState(0);
+  const [qCount, setQCount] = useState(0);
+
+  const TOTAL_Q = 5;
+
+  const generateQuestion = (tableToUse) => {
+    let num1, num2;
+    if (module.subType === 'tables') {
+      num1 = tableToUse;
+      num2 = Math.floor(Math.random() * 10) + 1; // 1 to 10
+    } else if (module.subType === 'addition') {
+      num1 = Math.floor(Math.random() * module.maxNum) + 1;
+      num2 = Math.floor(Math.random() * module.maxNum) + 1;
+    } else { // multiplication
+      num1 = Math.floor(Math.random() * module.maxNum) + 1;
+      num2 = Math.floor(Math.random() * module.maxNum) + 1;
+    }
+
+    const isAdd = module.subType === 'addition';
+    const ans = isAdd ? num1 + num2 : num1 * num2;
+    const operator = isAdd ? '+' : '×';
+
+    // generate options
+    let opts = new Set([ans]);
+    while(opts.size < 4) {
+      let offset = Math.floor(Math.random() * 10) - 5;
+      if (offset === 0) offset = 1;
+      let fakeAns = ans + offset;
+      if (fakeAns > 0) opts.add(fakeAns);
+    }
+    opts = Array.from(opts).sort(() => Math.random() - 0.5);
+
+    const mappedOpts = opts.map((o, idx) => ({ id: idx, text: String(o), isCorrect: o === ans }));
+    
+    return {
+      text: `${num1} ${operator} ${num2} = ?`,
+      options: mappedOpts
+    };
+  };
+
+  const startGame = (table) => {
+    if (table) setSelectedTable(table);
+    setScore(0);
+    setQCount(0);
+    setCurrentQ(generateQuestion(table));
+    setGameState('playing');
+    setTimeLeft(5);
+  };
+
+  useEffect(() => {
+    if (gameState !== 'playing' || feedback !== null) return;
+    
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          handleAnswer(false, true); // timeout
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameState, feedback]);
+
+  const handleAnswer = (isCorrect, isTimeout = false) => {
+    if (isCorrect) {
+      setFeedback('correct');
+      setScore(s => s + 1);
+    } else {
+      setFeedback(isTimeout ? 'timeout' : 'wrong');
+    }
+
+    setTimeout(() => {
+      setFeedback(null);
+      if (qCount + 1 < TOTAL_Q) {
+        setQCount(c => c + 1);
+        setCurrentQ(generateQuestion(selectedTable));
+        setTimeLeft(5);
+      } else {
+        setGameState('finished');
+      }
+    }, 1200);
+  };
+
+  if (gameState === 'menu') {
+    if (module.subType === 'tables') {
+      // Show table selector
+      const maxTable = module.maxTable || 12;
+      const tables = Array.from({length: maxTable}, (_, i) => i + 1);
+      return (
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-6 w-full animate-fade-in">
+          <h3 className="text-2xl font-bold text-[#1E3A8A] text-center">
+            {lang === 'en' ? "Choose a Table:" : "নামতা বেছে নাও:"}
+          </h3>
+          <div className="grid grid-cols-4 gap-3">
+            {tables.map(t => (
+              <button key={t} onClick={() => startGame(t)} className="p-4 bg-[#FEF3C7] text-[#1E3A8A] font-bold text-xl rounded-xl active:scale-95 shadow-sm">
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      // Just a start button for addition/multiplication
+      return (
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-6 w-full text-center">
+          <h3 className="text-2xl font-bold text-[#1E3A8A]">{module.instruction[lang]}</h3>
+          <button onClick={() => startGame(null)} className="p-4 bg-[#10B981] text-white font-bold text-xl rounded-full active:scale-95 shadow-md">
+            {lang === 'en' ? "Start Game!" : "খেলা শুরু করো!"}
+          </button>
+        </div>
+      );
+    }
+  }
+
+  if (gameState === 'finished') {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-6 w-full text-center animate-fade-in">
+        <h3 className="text-3xl font-bold text-[#1E3A8A]">
+          {lang === 'en' ? "Game Over!" : "খেলা শেষ!"}
+        </h3>
+        <div className="text-6xl my-4">🌟</div>
+        <p className="text-[#1E3A8A] text-xl font-bold">
+          {lang === 'en' ? `You scored ${score} out of ${TOTAL_Q}!` : `তুমি ${TOTAL_Q} এর মধ্যে ${score} পেয়েছো!`}
+        </p>
+        <button onClick={() => onComplete(Math.ceil(score * (module.rewardStars / 5)))} className="p-4 bg-[#F59E0B] text-white font-bold text-xl rounded-full active:scale-95 shadow-md">
+          {lang === 'en' ? "Collect Stars" : "তারা সংগ্রহ করো"}
+        </button>
+      </div>
+    );
+  }
+
+  if (gameState === 'playing' && currentQ) {
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-6 w-full animate-fade-in relative overflow-hidden">
+        
+        {/* Timer Bar */}
+        <div className="w-full bg-gray-100 h-2 absolute top-0 left-0">
+          <div className="h-full bg-[#EF4444] transition-all duration-1000 ease-linear" style={{ width: `${(timeLeft / 5) * 100}%` }}></div>
+        </div>
+
+        <div className="flex items-center justify-between mt-4">
+          <div className="text-[#EF4444] font-bold text-xl flex items-center gap-2">
+            ⏱️ {timeLeft}s
+          </div>
+          <div className="text-[#1E3A8A] font-bold opacity-50">
+            {qCount + 1} / {TOTAL_Q}
+          </div>
+        </div>
+
+        <h3 className="text-5xl font-bold text-[#1E3A8A] text-center my-6">
+          {currentQ.text}
+        </h3>
+
+        {feedback === 'correct' && (
+          <div className="flex items-center justify-center p-4 bg-[#10B981] text-white rounded-xl font-bold animate-bounce text-xl">
+            {lang === 'en' ? "Very good! ✨" : "খুব ভালো! ✨"}
+          </div>
+        )}
+        {feedback === 'wrong' && (
+          <div className="flex items-center justify-center p-4 bg-[#EF4444] text-white rounded-xl font-bold animate-pulse text-xl">
+            {lang === 'en' ? "Wrong! ❌" : "ভুল! ❌"}
+          </div>
+        )}
+        {feedback === 'timeout' && (
+          <div className="flex items-center justify-center p-4 bg-[#F59E0B] text-white rounded-xl font-bold animate-pulse text-xl">
+            {lang === 'en' ? "Time's Up! ⏰" : "সময় শেষ! ⏰"}
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-3">
+          {currentQ.options.map(opt => (
+            <button
+               key={opt.id}
+              onClick={() => { if (!feedback) handleAnswer(opt.isCorrect); }}
+              className={`min-h-[60px] p-4 rounded-xl text-3xl font-bold text-[#1E3A8A] bg-[#F9FAFB] border-2 border-[#FEF3C7] active:scale-95 transition-transform flex items-center justify-center
+                ${feedback === 'correct' && opt.isCorrect ? '!bg-[#10B981] !text-white border-transparent' : ''}
+                ${(feedback === 'wrong' || feedback === 'timeout') && !opt.isCorrect ? 'opacity-30' : ''}
+                ${(feedback === 'wrong' || feedback === 'timeout') && opt.isCorrect ? '!bg-[#10B981] !text-white' : ''}
+              `}
+            >
+              {opt.text}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 // --- Page Level Views ---
 const OnboardingView = ({ setProfile, initialProfile, lang }) => {
   const [name, setName] = useState(initialProfile?.name || '');
@@ -384,6 +583,17 @@ const ModuleView = ({ subjectId, classId, lang, onBack, onReward }) => {
             }} 
           />
         )}
+
+        {activeModule.type === 'math_game' && (
+          <MathGameCard 
+            module={activeModule} 
+            lang={lang} 
+            onComplete={(stars) => {
+              onReward(stars);
+              setActiveModule(null);
+            }} 
+          />
+        )}
       </div>
     );
   }
@@ -413,7 +623,9 @@ const ModuleView = ({ subjectId, classId, lang, onBack, onReward }) => {
               </div>
               <div className="text-left">
                 <p className="font-bold text-[#1E3A8A] text-lg">
-                  {mod.type === 'video' ? (lang === 'en' ? "Watch Video" : "ভিডিও দেখো") : (lang === 'en' ? "Play Quiz" : "কুইজ খেলো")}
+                  {mod.type === 'video' ? (lang === 'en' ? "Watch Video" : "ভিডিও দেখো") : 
+                   mod.type === 'math_game' ? (lang === 'en' ? "Play Game" : "গেম খেলো") :
+                   (lang === 'en' ? "Play Quiz" : "কুইজ খেলো")}
                 </p>
                 <div className="flex items-center gap-1 text-[#F59E0B] font-bold text-sm">
                   <Star fill="#F59E0B" size={14} /> +{mod.rewardStars} {lang === 'en' ? "Points" : "পয়েন্ট"}
