@@ -7,6 +7,7 @@ const CLASSES = [
   { id: 'nursery', label: 'Nursery' },
   { id: 'lkg', label: 'LKG' },
   { id: 'ukg', label: 'UKG' },
+  { id: 'preparatory', label: 'Preparatory' },
   { id: 'class1', label: 'Class 1' },
   { id: 'class2', label: 'Class 2' },
   { id: 'class3', label: 'Class 3' },
