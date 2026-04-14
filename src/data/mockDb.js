@@ -77,6 +77,16 @@ export const MOCK_DB = {
                 { id: "o2", text: "Yellow", isCorrect: true },
                 { id: "o3", text: "Green", isCorrect: false }
               ]
+            },
+            {
+              id: "q2",
+              questionText: { en: "Which block is Red?", bn: "লাল ব্লক কোনটি?" },
+              options: [
+                { id: "o1", text: "🟦", isCorrect: false, isPicture: true },
+                { id: "o2", text: "🟥", isCorrect: true, isPicture: true },
+                { id: "o3", text: "🟩", isCorrect: false, isPicture: true },
+                { id: "o4", text: "🟨", isCorrect: false, isPicture: true }
+              ]
             }
           ]
         }
@@ -152,6 +162,16 @@ export const MOCK_DB = {
                 { id: "o1", text: "Lion", isCorrect: false },
                 { id: "o2", text: "Dog", isCorrect: true },
                 { id: "o3", text: "Tiger", isCorrect: false }
+              ]
+            },
+            {
+              id: "q2",
+              questionText: { en: "Pick the wild animal!", bn: "বন্যপ্রাণী বেছে নাও!" },
+              options: [
+                { id: "o1", text: "🐶", isCorrect: false, isPicture: true },
+                { id: "o2", text: "🐱", isCorrect: false, isPicture: true },
+                { id: "o3", text: "🦁", isCorrect: true, isPicture: true },
+                { id: "o4", text: "🐮", isCorrect: false, isPicture: true }
               ]
             }
           ]

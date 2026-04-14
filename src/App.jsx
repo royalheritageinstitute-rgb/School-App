@@ -158,17 +158,22 @@ const QuizCard = ({ module, lang, onComplete }) => {
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className={q.options.some(o => o.isPicture) ? "grid grid-cols-2 gap-3" : "flex flex-col gap-3"}>
         {q.options.map((opt) => (
           <button
             key={opt.id}
             onClick={() => { if (!feedback) handleAnswer(opt.isCorrect); }}
-            className={`min-h-[60px] p-4 rounded-xl text-xl font-bold text-[#1E3A8A] bg-[#F9FAFB] border-2 border-[#FEF3C7] active:scale-95 transition-transform flex items-center justify-center
+            className={`min-h-[60px] p-4 rounded-xl font-bold text-[#1E3A8A] bg-[#F9FAFB] border-2 border-[#FEF3C7] active:scale-95 transition-transform flex items-center justify-center
+              ${opt.isPicture ? 'text-7xl aspect-square' : 'text-xl'}
               ${feedback === 'correct' && opt.isCorrect ? '!bg-[#10B981] !text-white border-transparent' : ''}
               ${feedback === 'wrong' && !opt.isCorrect ? 'opacity-50' : ''}
             `}
           >
-            {opt.text}
+            {opt.isPicture && opt.text.startsWith('http') ? (
+               <img src={opt.text} alt="option" className="h-full w-full object-contain" />
+            ) : (
+               opt.text
+            )}
           </button>
         ))}
       </div>
