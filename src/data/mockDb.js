@@ -82,10 +82,10 @@ export const MOCK_DB = {
               id: "q2",
               questionText: { en: "Which block is Red?", bn: "লাল ব্লক কোনটি?" },
               options: [
-                { id: "o1", text: "🟦", isCorrect: false, isPicture: true },
-                { id: "o2", text: "🟥", isCorrect: true, isPicture: true },
-                { id: "o3", text: "🟩", isCorrect: false, isPicture: true },
-                { id: "o4", text: "🟨", isCorrect: false, isPicture: true }
+                { id: "o1", text: "https://placehold.co/400x400/0000ff/0000ff.png", isCorrect: false, isPicture: true },
+                { id: "o2", text: "https://placehold.co/400x400/ff0000/ff0000.png", isCorrect: true, isPicture: true },
+                { id: "o3", text: "https://placehold.co/400x400/00ff00/00ff00.png", isCorrect: false, isPicture: true },
+                { id: "o4", text: "https://placehold.co/400x400/ffff00/ffff00.png", isCorrect: false, isPicture: true }
               ]
             }
           ]
@@ -168,10 +168,10 @@ export const MOCK_DB = {
               id: "q2",
               questionText: { en: "Pick the wild animal!", bn: "বন্যপ্রাণী বেছে নাও!" },
               options: [
-                { id: "o1", text: "🐶", isCorrect: false, isPicture: true },
-                { id: "o2", text: "🐱", isCorrect: false, isPicture: true },
-                { id: "o3", text: "🦁", isCorrect: true, isPicture: true },
-                { id: "o4", text: "🐮", isCorrect: false, isPicture: true }
+                { id: "o1", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Huskiesatrest.jpg/500px-Huskiesatrest.jpg", isCorrect: false, isPicture: true },
+                { id: "o2", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/500px-Cat_August_2010-4.jpg", isCorrect: false, isPicture: true },
+                { id: "o3", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/500px-020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg", isCorrect: true, isPicture: true },
+                { id: "o4", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/500px-African_Bush_Elephant.jpg", isCorrect: false, isPicture: true }
               ]
             }
           ]
