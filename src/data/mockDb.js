@@ -171,7 +171,7 @@ export const MOCK_DB = {
                 { id: "o1", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Huskiesatrest.jpg/500px-Huskiesatrest.jpg", isCorrect: false, isPicture: true },
                 { id: "o2", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/500px-Cat_August_2010-4.jpg", isCorrect: false, isPicture: true },
                 { id: "o3", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/500px-020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg", isCorrect: true, isPicture: true },
-                { id: "o4", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/500px-African_Bush_Elephant.jpg", isCorrect: false, isPicture: true }
+                { id: "o4", text: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Cow_female_black_white.jpg/500px-Cow_female_black_white.jpg", isCorrect: false, isPicture: true }
               ]
             }
           ]
